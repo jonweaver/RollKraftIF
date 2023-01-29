@@ -58,7 +58,6 @@
     <Compile Include="Data\IStoredProcedureRunner.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="RKIProdProgramInfoRepository.cs" />
-    <Compile Include="Data\SqlServerStoredProcedureRunner.cs" />
     <Compile Include="Models\JobInfo.cs" />
     <Compile Include="Models\ProgramDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

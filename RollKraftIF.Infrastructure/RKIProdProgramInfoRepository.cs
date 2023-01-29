@@ -1,4 +1,5 @@
-﻿#define USE_DAPPER
+﻿// uncomment below to try out Crane ORM https://github.com/gtaylor44/Crane
+//#define USE_CRANE
 
 using RollKraftIF.Infrastructure.Data;
 using RollKraftIF.Infrastructure.Models;
@@ -26,7 +27,9 @@ namespace RollKraftIF.Infrastructure
         private static readonly string GetRollBarProcedureName = ConfigurationManager.AppSettings
             .Get("GetRollBarProcedureName") ?? "spGetRollBore";
         private static readonly string GetRollMaterialProcedureName = ConfigurationManager.AppSettings
-            .Get("GetRollMaterialProcedureName") ?? "spGetRollMaterial";
+            .Get("GetRollMaterialProcedureName") ?? "spGetRollMaterial"; 
+        private static readonly string GetProgramDetailsProcedureName = ConfigurationManager.AppSettings
+            .Get("GetProgramDetailsProcedureName") ?? "spGetProgramDetails";
 
         private readonly IStoredProcedureRunner storedProcedureRunner;
 
@@ -44,15 +47,11 @@ namespace RollKraftIF.Infrastructure
                 }
             }
 
-#if USE_DAPPER
-
-            storedProcedureRunner = new DapperStoredProcedureRunner(connectionString);
-
-#elif USE_CRANE
+#if USE_CRANE
 
             storedProcedureRunner = new CraneStoredProcedureRunner(connectionString);
-#else
-            storedProcedureRunner = new SqlServerStoredProcedureRunner(connectionString); 
+#else 
+            storedProcedureRunner = new DapperStoredProcedureRunner(connectionString);
 #endif
 
             if (storedProcedureRunner == null)
@@ -81,30 +80,26 @@ namespace RollKraftIF.Infrastructure
 
         public ProgramDetails GetProgramDetails(JobInfo jobInfo)
         {
-            return new ProgramDetails
-            {
-                Program = GetProgramName(jobInfo),
-                RollBore = GetRollBore(jobInfo),
-                RollMaterial = GetRollMaterial(jobInfo)
-            };
+            ValidateInput(jobInfo);
+            return storedProcedureRunner.ExecuteStoredProcedure<ProgramDetails>(GetProgramDetailsProcedureName, jobInfo);
         }
 
         public string GetProgramName(JobInfo jobInfo)
         {
             ValidateInput(jobInfo);
-            return storedProcedureRunner.ExecuteStoredProcedure(GetProgramProcedureName, jobInfo);
+            return storedProcedureRunner.ExecuteStoredProcedure<string>(GetProgramProcedureName, jobInfo);
         }
 
         public string GetRollBore(JobInfo jobInfo)
         {
             ValidateInput(jobInfo);
-            return storedProcedureRunner.ExecuteStoredProcedure(GetRollBarProcedureName, jobInfo);
+            return storedProcedureRunner.ExecuteStoredProcedure<string>(GetRollBarProcedureName, jobInfo);
         }
 
         public string GetRollMaterial(JobInfo jobInfo)
         {
             ValidateInput(jobInfo);
-            return storedProcedureRunner.ExecuteStoredProcedure(GetRollMaterialProcedureName, jobInfo);
+            return storedProcedureRunner.ExecuteStoredProcedure<string>(GetRollMaterialProcedureName, jobInfo);
         }
     }
 }

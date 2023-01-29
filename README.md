@@ -26,6 +26,13 @@ var jobInfo = new JobInfo { JobNumber = "136778-01", Location = "EF1T2-.062" };
 
 Console.WriteLine($"Getting details for job# {jobInfo.JobNumber} location {jobInfo.Location}");
 
+Console.WriteLine("We can get all of the program details in one shot.");
+
+var details = repo.GetProgramDetails(jobInfo);
+Console.WriteLine(details.ToString());
+
+Console.WriteLine("Or we can get each piece individually");
+
 var program = repo.GetProgramName(jobInfo);
 Console.WriteLine($"Program is {program}");
 
@@ -96,6 +103,18 @@ AS
 
 BEGIN
     SELECT j.Material
+    FROM [tempdb].[dbo].[Jobs] j
+	WHERE j.job_number = @job_number AND j.location = @location
+END
+
+CREATE PROCEDURE [dbo].spGetProgramDetails
+ @job_number nvarchar(100),
+ @location nvarchar(100)
+
+AS
+
+BEGIN
+    SELECT j.ProgramNumber,j.Bore,j.Material
     FROM [tempdb].[dbo].[Jobs] j
 	WHERE j.job_number = @job_number AND j.location = @location
 END

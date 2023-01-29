@@ -18,25 +18,21 @@ namespace RollKraftIF.Infrastructure.Data
             sqlAccess = new SqlServerAccess(ConnString);
         }
   
-        public string ExecuteStoredProcedure(string procedureName, object model)
+        public T ExecuteStoredProcedure<T>(string procedureName, object model)
         {
-            string result;
-
             try
             {
                 var parameters = model.ToSQLParameters();
 
-                result = sqlAccess.Query()
+                return sqlAccess.Query()
                     .AddSqlParameterCollection(parameters)
-                    .ExecuteReader<string>(procedureName)
+                    .ExecuteReader<T>(procedureName)
                     .FirstOrDefault();
 
             } catch(Exception ex)
             {
                 throw new ApplicationException($"Problem running stored procedure {procedureName}: {ex.Message}", ex);
             }
-
-            return result;
         }
     }
 }

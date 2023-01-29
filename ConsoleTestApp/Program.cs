@@ -13,6 +13,15 @@ namespace ConsoleTestApp
 
             Console.WriteLine($"Getting details for job# {jobInfo.JobNumber} location {jobInfo.Location}");
 
+            Console.WriteLine();
+            Console.WriteLine("We can get all of the program details in one shot:");
+
+            var details = repo.GetProgramDetails(jobInfo);
+            Console.WriteLine(details.ToString());
+
+            Console.WriteLine();
+            Console.WriteLine("Or we can get each piece individually:");
+
             var program = repo.GetProgramName(jobInfo);
             Console.WriteLine($"Program is {program}");
 

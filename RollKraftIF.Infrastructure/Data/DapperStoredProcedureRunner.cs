@@ -19,12 +19,12 @@ namespace RollKraftIF.Infrastructure.Data
             this.connectionString = connectionString;
         }
 
-        public string ExecuteStoredProcedure(string procedureName, object model)
+        public T ExecuteStoredProcedure<T>(string procedureName, object model)
         {
             using(var connection = new SqlConnection(connectionString))
             {
                 var parameters = model.ToDynamicParameters();
-                return connection.QuerySingleOrDefault<string>(
+                return connection.QuerySingleOrDefault<T>(
                     procedureName,
                     parameters,
                     commandType: CommandType.StoredProcedure);

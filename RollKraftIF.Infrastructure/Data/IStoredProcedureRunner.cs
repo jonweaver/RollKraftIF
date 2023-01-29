@@ -5,7 +5,7 @@ namespace RollKraftIF.Infrastructure.Data
 {
     public interface IStoredProcedureRunner
     {
-        string ExecuteStoredProcedure(string procedureName, object model);
+        T ExecuteStoredProcedure<T>(string procedureName, object model);
     }
 
 }

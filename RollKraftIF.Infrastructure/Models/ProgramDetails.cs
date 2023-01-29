@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RollKraftIF.Infrastructure.Models
 {
     public class ProgramDetails
     {
-        public string Program { get; set; }
-        public string RollBore { get; set; }
-        public string RollMaterial { get; set; }
+        public override string ToString() => 
+            $"{nameof(ProgramNumber)}: {ProgramNumber}\n{nameof(Bore)}: {Bore}\n{nameof(Material)}: {Material}";
+
+        public string Bore { get; set; }
+
+        public string Material { get; set; }
+
+        public string ProgramNumber { get; set; }
     }
 }
