@@ -7,4 +7,5 @@ namespace RollKraftIF.Infrastructure.Data
     {
         string ExecuteStoredProcedure(string procedureName, object model);
     }
+
 }

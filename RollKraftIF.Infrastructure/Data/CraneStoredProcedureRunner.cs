@@ -12,25 +12,12 @@ namespace RollKraftIF.Infrastructure.Data
         private readonly string ConnString;
         private readonly ICraneAccess sqlAccess;
 
-        public CraneStoredProcedureRunner()
+        public CraneStoredProcedureRunner(string connectionString)
         {
-            try
-            {
-                ConnString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Problem reading SqlConnection connection string", ex);
-            }
-
+            ConnString = connectionString;
             sqlAccess = new SqlServerAccess(ConnString);
         }
-
-        public CraneStoredProcedureRunner(ICraneAccess sqlAccess) 
-        { 
-            this.sqlAccess = sqlAccess; 
-        }
-
+  
         public string ExecuteStoredProcedure(string procedureName, object model)
         {
             string result;

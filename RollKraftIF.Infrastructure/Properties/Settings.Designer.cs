@@ -22,32 +22,5 @@ namespace RollKraftIF.Infrastructure.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("spGetTandP_Program")]
-        public string GetProgramProcedureName {
-            get {
-                return ((string)(this["GetProgramProcedureName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("spGetRollBore")]
-        public string GetRollBarProcedureName {
-            get {
-                return ((string)(this["GetRollBarProcedureName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("spGetRollMaterial")]
-        public string GetRollMaterialProcedureName {
-            get {
-                return ((string)(this["GetRollMaterialProcedureName"]));
-            }
-        }
     }
 }

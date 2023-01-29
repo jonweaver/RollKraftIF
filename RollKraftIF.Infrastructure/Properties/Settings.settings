@@ -1,15 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RollKraftIF.Infrastructure.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="GetProgramProcedureName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">spGetTandP_Program</Value>
-    </Setting>
-    <Setting Name="GetRollBarProcedureName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">spGetRollBore</Value>
-    </Setting>
-    <Setting Name="GetRollMaterialProcedureName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">spGetRollMaterial</Value>
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>

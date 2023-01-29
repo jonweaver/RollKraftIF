@@ -34,6 +34,9 @@
     <Reference Include="Crane, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Crane.2.2.2\lib\net45\Crane.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper, Version=1.60.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.60.6\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Crane.2.2.2\lib\net45\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
@@ -50,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CraneStoredProcedureRunner.cs" />
+    <Compile Include="Data\DapperStoredProcedureRunner.cs" />
+    <Compile Include="Data\DbConstansts.cs" />
     <Compile Include="Data\IStoredProcedureRunner.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="RKIProdProgramInfoRepository.cs" />
@@ -62,6 +67,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

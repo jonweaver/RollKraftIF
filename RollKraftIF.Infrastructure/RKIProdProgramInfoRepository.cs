@@ -1,4 +1,6 @@
-﻿using RollKraftIF.Infrastructure.Data;
+﻿#define USE_DAPPER
+
+using RollKraftIF.Infrastructure.Data;
 using RollKraftIF.Infrastructure.Models;
 using System;
 using System.Configuration;
@@ -20,22 +22,43 @@ namespace RollKraftIF.Infrastructure
     public class RKIProdProgramInfoRepository : IProgramInfoRepository
     {
         private static readonly string GetProgramProcedureName = ConfigurationManager.AppSettings
-            .Get("GetProgramProcedureName");
+            .Get("GetProgramProcedureName") ?? "spGetTandP_Program";
         private static readonly string GetRollBarProcedureName = ConfigurationManager.AppSettings
-            .Get("GetRollBarProcedureName");
+            .Get("GetRollBarProcedureName") ?? "spGetRollBore";
         private static readonly string GetRollMaterialProcedureName = ConfigurationManager.AppSettings
-            .Get("GetRollMaterialProcedureName");
+            .Get("GetRollMaterialProcedureName") ?? "spGetRollMaterial";
 
         private readonly IStoredProcedureRunner storedProcedureRunner;
 
-        public RKIProdProgramInfoRepository() 
-        { 
-            storedProcedureRunner = new SqlServerStoredProcedureRunner(); 
-        }
-
-        public RKIProdProgramInfoRepository(IStoredProcedureRunner storedProcedureRunner)
+        public RKIProdProgramInfoRepository(string connectionString = "") 
         {
-            this.storedProcedureRunner = storedProcedureRunner;
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings[DbConstants.ConnectionStringName].ConnectionString;
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException($"Problem reading SqlConnection connection string", ex);
+                }
+            }
+
+#if USE_DAPPER
+
+            storedProcedureRunner = new DapperStoredProcedureRunner(connectionString);
+
+#elif USE_CRANE
+
+            storedProcedureRunner = new CraneStoredProcedureRunner(connectionString);
+#else
+            storedProcedureRunner = new SqlServerStoredProcedureRunner(connectionString); 
+#endif
+
+            if (storedProcedureRunner == null)
+            {
+                throw new InvalidOperationException("no StoredProcedureRunnerDefined");
+            }
         }
 
         private void ValidateInput(JobInfo jobInfo)

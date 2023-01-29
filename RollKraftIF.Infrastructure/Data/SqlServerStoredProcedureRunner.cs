@@ -12,9 +12,12 @@ namespace RollKraftIF.Infrastructure.Data
 {
     public class SqlServerStoredProcedureRunner : IStoredProcedureRunner
     {
-        private static readonly string ConnString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+        private readonly string connectionString;
 
-   
+        public SqlServerStoredProcedureRunner(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
 
         public string ExecuteStoredProcedure(string procedureName, object model)
         {
@@ -32,7 +35,7 @@ namespace RollKraftIF.Infrastructure.Data
 
             var responseString = string.Empty;
 
-            using(var sqlConnObj = new SqlConnection(ConnString))
+            using(var sqlConnObj = new SqlConnection(connectionString))
             {
                 try
                 {
