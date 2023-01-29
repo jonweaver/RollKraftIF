@@ -22,18 +22,18 @@ var repo = new RKIProdProgramInfoRepository("connection string");
 ```C#
 var repo = new RKIProdProgramInfoRepository();
 
-            var jobInfo = new JobInfo { JobNumber = "136778-01", Location = "EF1T2-.062" };
+var jobInfo = new JobInfo { JobNumber = "136778-01", Location = "EF1T2-.062" };
 
-            Console.WriteLine($"Getting details for job# {jobInfo.JobNumber} location {jobInfo.Location}");
+Console.WriteLine($"Getting details for job# {jobInfo.JobNumber} location {jobInfo.Location}");
 
-            var program = repo.GetProgramName(jobInfo);
-            Console.WriteLine($"Program is {program}");
+var program = repo.GetProgramName(jobInfo);
+Console.WriteLine($"Program is {program}");
 
-            var rollBore = repo.GetRollBore(jobInfo);
-            Console.WriteLine($"Roll Bore is {rollBore}");
+var rollBore = repo.GetRollBore(jobInfo);
+Console.WriteLine($"Roll Bore is {rollBore}");
 
-            var rollMaterial = repo.GetRollMaterial(jobInfo);
-            Console.WriteLine($"Roll Material is {rollMaterial}");
+var rollMaterial = repo.GetRollMaterial(jobInfo);
+Console.WriteLine($"Roll Material is {rollMaterial}");
 ```
 
 ## Testing
